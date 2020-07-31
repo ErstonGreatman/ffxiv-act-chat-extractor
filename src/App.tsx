@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import styles from './styles';
+import LogPanel from './components/LogPanel';
+import { css } from '@emotion/core';
+import Header from './components/Header';
 
-const App: React.FC = () => {
-  return (
-    <div css={styles.app}>
-      <header css={styles.appHeader}>
-        <img src={logo} css={styles.appLogo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          css={styles.appLink}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const styles = {
+  app: css`
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    background: linear-gradient(180deg, #021c2f, #2d2cf4);
+    background-size: 400% 400%;
+
+    -webkit-animation: gradient-background 10s ease infinite;
+    -moz-animation: gradient-background 10s ease infinite;
+    -o-animation: gradient-background 10s ease infinite;
+    animation: gradient-background 10s ease infinite;
+  `,
 };
+
+const App: React.FC = () => (
+    <div css={styles.app}>
+      <Header />
+      <LogPanel />
+    </div>
+);
 
 export default App;

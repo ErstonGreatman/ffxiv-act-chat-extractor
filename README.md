@@ -15,7 +15,8 @@ As long as Advanced Combat Tracker is open during the RP session, it should log 
 - Maybe better UI/color scheme?
 
 
-
+---
+ 
 # Original README.md
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
