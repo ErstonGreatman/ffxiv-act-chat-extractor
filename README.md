@@ -1,9 +1,9 @@
 # FFXIV ACT Chat Extractor (FACE)
 ### A React app for parsing/filtering FFXIV ACT logs
 
-FACE is an app to enable you able to effectively view chat logs, filter them by chat channels, and save them if desired. Primarily intended to support role-players, the idea was to be able to capture an in-game roleplaying session without having to copy, paste, scroll, copy, paste, scroll, ad nauseum. The aim is to have color-coding for each channel and exporting to various mediums.
+FACE is an app to enable you able to effectively view chat logs, filter them by chat channels, and save them if desired. Primarily intended to support role-players, the idea was to be able to capture an in-game roleplaying session without having to copy, paste, scroll, copy, paste, scroll, ad nauseam. The aim is to have color-coding for each channel and exporting to various mediums.
 
-This was inspired/taken from [https://github.com/isalin/ACT-Log-Extractor](https://github.com/isalin/ACT-Log-Extractor), whose initial work, especially with the RegEx (*shudders*) inspired me to try and update it. It's written in React with TypeScript and Emotion. I might add something like Pose for better animations with elements.
+This was inspired/taken from [https://github.com/isalin/ACT-Log-Extractor](https://github.com/isalin/ACT-Log-Extractor), whose initial work, especially with the RegEx (*shudders*) inspired me to try to update it. It's written in React with TypeScript and Emotion. I might add something like Pose for better animations with elements.
 
 ## Usage
 
