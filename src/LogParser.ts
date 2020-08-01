@@ -1,5 +1,13 @@
 import { MatchedLogLine } from './Log';
+import { RegEx } from './constants/RegEx';
 
+/**
+ * parseLog
+ * This function wraps a child function that takes an array of files and parses the first file (multiple in the future)
+ * into a MatchedLogLine array. That array is then passed to the onComplete callback param of the parent function
+ * @param {(parsedLod: MatchedLogLine[] => void)} - Callback function that receives the results of the log parsing
+ * @param {File[]} files - Provided by whatever calls this function. Array of Files, probably from a file dialog
+ */
 export const parseLog = (onComplete: (parsedLog: MatchedLogLine[]) => void) => (files: File[]): void => {
   if (files.length === 0) {
     return;
@@ -11,28 +19,50 @@ export const parseLog = (onComplete: (parsedLog: MatchedLogLine[]) => void) => (
   reader.onerror = () => console.log('file reading has failed');
   reader.onload = () => {
     // Do whatever you want with the file contents
-    const log = reader.result;
+    const log = reader.result?.toString();
 
     if (log) {
-      const logByLine: string[] = log.toString().split('\n');
-      const regex = /00\|\d+-\d+-\d+T(?<time>\d+:\d+:\d+).+?\|(?<code>.+)\|.*?(?<sender>[A-Z][A-z']+? [A-z']+).*?\|(?<message>.+)\|[^]+/;
-      const parsedLog = logByLine.map((line: string) => {
-        const match = line.match(regex);
-        if (match && match.groups) {
-          return {
-            time: match.groups['time'],
-            code: match.groups['code'],
-            sender: match.groups['sender'],
-            message: match.groups['message'],
-          };
-        }
-        return null;
-      })
-      .filter(element => element !== null) as MatchedLogLine[];
-      // console.table(parsedLog);
-      onComplete(parsedLog);
+      onComplete(parseLogLines(log));
     }
   };
 
   reader.readAsText(files[0]);
+};
+
+/**
+ * parseName
+ * Parses and presents a display-friendly string for names as Cross-World names enter the log as
+ * 'Erston GreatmanBrynhildr'
+ * @param {string} name - Name of the character parse from the log string.
+ * @return {string} A chat name string such as 'Erston Greatman' or 'Erston Greatman🌸Brynhildr
+ */
+export const parseName = (name: string): string => {
+  const senderRegEx = name.match(RegEx.name);
+  return `${senderRegEx?.groups?.['name'] ?? 'Unknown'}${ senderRegEx?.groups?.['realm'] ? `🌸${senderRegEx.groups['realm']}` : ''}`;
+};
+
+/**
+ * parseLogLines
+ * Takes a log in string form and parses it into an array of lines, broken down into objects by time, channel code,
+ * sender and message
+ * @param {string} log - Name of the character parse from the log string
+ * @return {MatchedLogLine[]} An array of MatchedLogLine objects
+ */
+export const parseLogLines = (log: string): MatchedLogLine[] => {
+  const logByLine: string[] = log.toString().split('\n');
+
+  return logByLine.map((line: string) => {
+    const match = line.match(RegEx.message);
+
+    if (match?.groups) {
+      return {
+        time: match.groups['time'],
+        code: match.groups['code'],
+        sender: match.groups['sender'],
+        message: match.groups['message'],
+      };
+    }
+    return null;
+  })
+    .filter(element => element !== null) as MatchedLogLine[];
 };
