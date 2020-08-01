@@ -22,7 +22,7 @@ const styles = {
   `,
   logEntry: (code: string) => css`
     color: ${CHANNELS.find(channel => channel.code === code)?.color ?? '#FFFFFF'};
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', Arial;
   `,
 };
 
@@ -51,7 +51,7 @@ const LogViewer: React.FC<Props> = (props: Props) => {
       case CHANNEL_CODES.PARTY:
         return <span>({parsedSender}) </span>;
       case CHANNEL_CODES.FREE_COMPANY:
-        return <span>[Free Company]{`<${parsedSender}{>`} </span>;
+        return <span>[Free Company]{`<${parsedSender}>`} </span>;
       case CHANNEL_CODES.LINKSHELL1:
       case CHANNEL_CODES.LINKSHELL2:
       case CHANNEL_CODES.LINKSHELL3:
@@ -73,8 +73,8 @@ const LogViewer: React.FC<Props> = (props: Props) => {
     (match) => parseName(match),
   );
 
-  const renderLogEntry = (entry: MatchedLogLine) => (
-    <div css={styles.logEntry(entry.code)} key={`${entry.time}-${entry.sender}`}>
+  const renderLogEntry = (entry: MatchedLogLine, index: number) => (
+    <div css={styles.logEntry(entry.code)} key={`${entry.time}-${entry.sender}-${index}`}>
       {props.showTimeStamp && <span>[{entry.time}] </span>}
       {renderSender(entry.code, entry.sender)}
       <span>{entry.code === CHANNEL_CODES.EMOTE ? renderEmote(entry.message) : entry.message}</span>

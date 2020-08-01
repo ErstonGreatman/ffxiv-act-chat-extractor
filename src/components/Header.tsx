@@ -13,6 +13,10 @@ const styles = {
     color: white;
     padding: 0 .5rem .25rem;
   `,
+  link: css`
+    color: #ffffff;
+    text-decoration: none;
+  `,
 };
 
 
@@ -24,7 +28,7 @@ const styles = {
  */
 const Header: React.FC = () => (
   <header css={styles.header}>
-    <div>FFXIV ACT Chat Log Extractor</div>
+    <a css={styles.link} href='/'>FFXIV ACT Chat Log Extractor</a>
   </header>
 );
 
