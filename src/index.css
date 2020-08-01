@@ -13,22 +13,49 @@ code {
 }
 
 @-webkit-keyframes gradient-background {
-  0%{background-position:50% 0%}
-  50%{background-position:50% 100%}
-  100%{background-position:50% 0%}
+  0% {
+    background-position: 50% 0
+  }
+  50% {
+    background-position: 50% 100%
+  }
+  100% {
+    background-position: 50% 0
+  }
 }
+
 @-moz-keyframes gradient-background {
-  0%{background-position:50% 0%}
-  50%{background-position:50% 100%}
-  100%{background-position:50% 0%}
+  0% {
+    background-position: 50% 0
+  }
+  50% {
+    background-position: 50% 100%
+  }
+  100% {
+    background-position: 50% 0
+  }
 }
+
 @-o-keyframes gradient-background {
-  0%{background-position:50% 0%}
-  50%{background-position:50% 100%}
-  100%{background-position:50% 0%}
+  0% {
+    background-position: 50% 0
+  }
+  50% {
+    background-position: 50% 100%
+  }
+  100% {
+    background-position: 50% 0
+  }
 }
+
 @keyframes gradient-background {
-  0%{background-position:50% 0%}
-  50%{background-position:50% 100%}
-  100%{background-position:50% 0%}
+  0% {
+    background-position: 50% 0
+  }
+  50% {
+    background-position: 50% 100%
+  }
+  100% {
+    background-position: 50% 0
+  }
 }

@@ -21,10 +21,10 @@ const styles = {
 };
 
 const App: React.FC = () => (
-    <div css={styles.app}>
-      <Header />
-      <LogPanel />
-    </div>
+  <div css={styles.app}>
+    <Header />
+    <LogPanel />
+  </div>
 );
 
 export default App;
