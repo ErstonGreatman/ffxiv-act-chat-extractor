@@ -12,6 +12,7 @@ It's currently live at: https://face.eggaming.net/
 As long as Advanced Combat Tracker is open during the RP session, it should log your chat. Just drag the log into the app or click on the app to open the file browser. By default, they should be stored in `%appdata%\Advanced Combat Tracker\FFXIVLogs`. Once the log is loaded, click to expand the filters if you want to filter out unwanted channels and enjoy!
 
 ## Known Issues/Planned Updates
+- Export methods: HTML, Markdown, etc.
 - Need to add Fellowships and Cross-World Linkshells
 - Add colorpickers for chat channels to customize the colors
 - Maybe better UI/color scheme?
