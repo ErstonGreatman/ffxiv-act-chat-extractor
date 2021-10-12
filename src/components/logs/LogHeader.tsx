@@ -1,39 +1,46 @@
 import * as React from 'react';
-import Filters from './Filters';
+import Filters from '../Filters';
 import { css } from '@emotion/core';
-import { Log } from '../Log';
+import { Log } from './Log';
 import { useState } from 'react';
+import {
+  FLEX_COLUMN,
+  FLEX_ROW,
+} from '../../globalStyles/flexbox';
 
 
 const styles = {
-  logLoadedHeader: css`
-    border-bottom: #eeeeee solid;
-    color: #ffffff;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-items: stretch;
-    flex-grow: 1;
-    text-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
-    padding: 1rem;
-    background: linear-gradient(180deg, #021c2f, #2d2cf4);
-    background-size: 200% 200%;
-  `,
-  actionBar: css`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-  `,
+  logLoadedHeader: [
+    FLEX_COLUMN,
+    css`
+      border-bottom: #eeeeee solid;
+      color: #ffffff;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-grow: 1;
+      text-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
+      padding: 1rem;
+      background: linear-gradient(180deg, #021c2f, #2d2cf4);
+      background-size: 200% 200%;
+    `,
+  ],
+  actionBar: [
+    FLEX_ROW,
+    css`
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    `,
+  ],
   fileName: css`
-    
   `,
   toggleFilters: css`
     cursor: pointer;
   `,
   filterArrow: (showFilters: boolean) => css`
     display: inline-block;
-    transform: rotate(${ showFilters ? '180' : '0'}deg);
+    transform: rotate(${showFilters ? '180' : '0'}deg);
     transition: .5s ease-in-out;
   `,
   loadLogButton: css`
@@ -58,9 +65,6 @@ type Props = {
 
 /**
  * LogHeader: a component that shows the filename of the log loaded, filters, and a button to load a new log file
- *
- * PureComponent: true
- * Redux Connected: false
  */
 const LogHeader: React.FC<Props> = (props: Props) => {
   const [showFilters, setShowFilters] = useState(false);

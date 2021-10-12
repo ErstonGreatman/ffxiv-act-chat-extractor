@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from '@emotion/core';
-import GithubIcon from '../assets/github-icon.png';
+import GithubIcon from '../../assets/github-icon.png';
 
 
 const styles = {

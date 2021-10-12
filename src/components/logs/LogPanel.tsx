@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { css } from '@emotion/core';
-import LogViewer from './LogViewer';
+import Viewer from './Viewer';
 import {
   useCallback,
   useState,
 } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { parseLog } from '../LogParser';
+import {
+  filterLog,
+  parseLog,
+  setAllFilters,
+} from './module';
 import {
   Log,
   MatchedLogLine,
-} from '../Log';
-import NoLog from './NoLog';
-import LoadingSpinner from './LoadingSpinner';
+} from './Log';
+import NoLog from '../NoLog';
+import LoadingSpinner from '../LoadingSpinner';
 import LogHeader from './LogHeader';
-import {
-  filterLog,
-  setAllFilters,
-} from '../Filters';
 
 const styles = {
   logPanel: css`
@@ -47,9 +47,6 @@ const styles = {
 /**
  * LogPanel: a component that manages the log file and filters and sends them to the log display and filter UI. Also
  * handles the loading and parsing UI.
- *
- * PureComponent: true
- * Redux Connected: false
  */
 const LogPanel: React.FC = () => {
   const [isParsing, setIsParsing] = useState(false);
@@ -80,7 +77,7 @@ const LogPanel: React.FC = () => {
           {log && (
             <>
               {!isDragActive && <LogHeader log={log} filters={filters} setFilters={setFilters} openFileDialog={open} />}
-              <LogViewer log={filterLog(log.contents, filters)} showTimeStamp={filters.includes('time')} />
+              <Viewer log={filterLog(log.contents, filters)} showTimeStamp={filters.includes('time')} />
             </>
           )}
         </>
