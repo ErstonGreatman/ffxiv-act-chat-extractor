@@ -1,17 +1,21 @@
 import * as React from 'react';
 import Crystal from '../assets/ff4-spinning-crystal.gif';
 import { css } from '@emotion/core';
+import {
+  FLEX_CENTERED,
+  FLEX_COLUMN,
+} from '../globalStyles/flexbox';
 
 
 const styles = {
-  loadingSpinner: css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    flex-grow: 1;
-  `,
+  loadingSpinner: [
+    FLEX_COLUMN,
+    FLEX_CENTERED,
+    css`
+      height: 100%;
+      flex-grow: 1;
+    `,
+  ],
   message: css`
     font-size: 3rem;
     font-weight: 500;
@@ -35,9 +39,6 @@ type Props = {
 
 /**
  * LoadingSpinner: a component that shows a spinning crystal and, optionally, a message
- *
- * PureComponent: true
- * Redux Connected: false
  */
 const LoadingSpinner: React.FC<Props> = (props: Props) => (
   <div css={styles.loadingSpinner}>

@@ -1,6 +1,16 @@
 import { MatchedLogLine } from './Log';
-import { RegEx } from './constants/RegEx';
+import { RegEx } from '../../constants/RegEx';
+import { CHANNELS } from '../../constants/Channels';
 
+export const setAllFilters = (): string[] => ['timestamp', ...CHANNELS.map((channel => channel.code))];
+
+export const filterLog = (
+  log: MatchedLogLine[],
+  filters: string[],
+): MatchedLogLine[] => log.filter(entry => filters.includes(entry.code));
+
+
+// noinspection JSCommentMatchesSignature
 /**
  * parseLog
  * This function wraps a child function that takes an array of files and parses the first file (multiple in the future)

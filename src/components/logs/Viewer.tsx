@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { MatchedLogLine } from '../Log';
+import { MatchedLogLine } from './Log';
 import { css } from '@emotion/core';
 import {
   CHANNEL_CODES,
   CHANNELS,
-} from '../constants/Channels';
-import { parseName } from '../LogParser';
-import { RegEx } from '../constants/RegEx';
+} from '../../constants/Channels';
+import { parseName } from './module';
+import { RegEx } from '../../constants/RegEx';
 
 
 const styles = {
@@ -34,16 +34,15 @@ type Props = {
 
 
 /**
- * LogViewer: a component that displays the parsed log based on filtering
- *
- * PureComponent: true
- * Redux Connected: false
+ * Viewer: a component that displays the parsed log based on filtering
  */
-const LogViewer: React.FC<Props> = (props: Props) => {
+const Viewer: React.FC<Props> = (props: Props) => {
   const renderSender = (code: string, sender: string) => {
     const parsedSender = parseName(sender);
 
     switch (code) {
+      case CHANNEL_CODES.CUSTOM_EMOTE:
+        return <span>{parsedSender} </span>;
       case CHANNEL_CODES.EMOTE:
         return <></>;
       case CHANNEL_CODES.WHISPER:
@@ -62,6 +61,13 @@ const LogViewer: React.FC<Props> = (props: Props) => {
       case CHANNEL_CODES.LINKSHELL8:
         const linkshell = parseInt(code) - 9;
         return <span>[{linkshell}]{`<${parsedSender}>`} </span>;
+      case CHANNEL_CODES.CROSSWORLD_LINKSHELL1:
+      case CHANNEL_CODES.CROSSWORLD_LINKSHELL2:
+      case CHANNEL_CODES.CROSSWORLD_LINKSHELL3:
+      case CHANNEL_CODES.CROSSWORLD_LINKSHELL4:
+      case CHANNEL_CODES.CROSSWORLD_LINKSHELL5:
+        const cwls = parseInt(code) - 63;
+        return <span>[CWL{cwls}]{`<${parsedSender}>`} </span>;
       default:
         return <span>{parsedSender}: </span>;
     }
@@ -90,4 +96,4 @@ const LogViewer: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default LogViewer;
+export default Viewer;

@@ -1,24 +1,47 @@
 import * as React from 'react';
 import { css } from '@emotion/core';
-import { CHANNELS } from '../constants/Channels';
+import 'react-toggle/style.css';
+import Toggle from 'react-toggle';
+import {
+  CHANNEL_CODES,
+  CHANNELS,
+} from '../constants/Channels';
+import {
+  AnimatePresence,
+  motion,
+} from 'framer-motion';
+import { FLEX_ROW } from '../globalStyles/flexbox';
+
+
+const MotionDiv = motion.div;
+const FULL_WIDTH = css`flex-basis: 100%;`;
 
 
 const styles = {
-  filters: (showFilters: boolean) => css`
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
-    margin-top: ${showFilters ? '1' : '0'}rem;
-    max-height: ${showFilters ? '10' : '0'}rem;
-    transform: scaleY(${showFilters ? '1' : '0'});
-    transition: .5s ease-in-out;
+  filters: [
+    FLEX_ROW,
+    css`
+      flex-wrap: wrap;
+      overflow: hidden;
+      padding: 15px 15px 0;
+    `,
+  ],
+  sectionTitle: css`
+    margin: 20px 20px 20px 0;
+    font-size: 1.2rem;
   `,
-  timeStamp: css`
-    grid-column-end: span 8;
-  `,
-  filter: css`
-  `,
-  checkbox: css`
+  filter: [
+    FLEX_ROW,
+    css`
+      align-items: center;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      flex-basis: 200px;
+    `,
+  ],
+  toggle: css`
     box-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
+    margin-right: 20px;
   `,
 };
 
@@ -32,26 +55,47 @@ type Props = {
 
 /**
  * Filters: a component that shows the filtering options for the ACT log
- *
- * PureComponent: true
- * Redux Connected: false
  */
-const Filters: React.FC<Props> = (props: Props) => {
-  const toggleFilter = (code: string) => props.setFilters(props.filters.includes(code)
-                                                          ? props.filters.filter(filter => filter !== code)
-                                                          : [...props.filters, code]);
-  const renderFilters = (filters: string[]) => (CHANNELS.map((channel, index) => (
-    <label css={index === 0 ? styles.timeStamp : styles.filter} htmlFor={`#${channel.name}`} key={channel.name}>
-      <input css={styles.checkbox} type='checkbox' id={channel.name} checked={filters.includes(channel.code)}
-             onChange={() => toggleFilter(channel.code)} />
-      <span>{channel.name}</span>
-    </label>
-  )));
+const Filters: React.FC<Props> = ({ filters, setFilters, showFilters }) => {
+  const toggleFilter = (code: string) => setFilters(filters.includes(code)
+                                                    ? filters.filter(filter => filter !== code)
+                                                    : [...filters, code]);
+
+
+  const renderFilters = (filters: string[]) => (
+    CHANNELS.map((channel, index) => (
+      <>
+        {channel.code === CHANNEL_CODES.LINKSHELL1 && <span css={styles.sectionTitle}>Linkshells</span>}
+        {channel.code === CHANNEL_CODES.CROSSWORLD_LINKSHELL1 && <span
+          css={styles.sectionTitle}>Cross-World Linkshells</span>}
+        <label css={[styles.filter, index === 0 && FULL_WIDTH]} htmlFor={channel.name} key={channel.name}>
+          <Toggle
+            id={channel.name}
+            css={styles.toggle}
+            checked={filters.includes(channel.code)}
+            onChange={() => toggleFilter(channel.code)}
+          />
+          <span>{channel.name}</span>
+        </label>
+      </>
+    ))
+  );
+
 
   return (
-    <div css={styles.filters(props.showFilters)}>
-      {renderFilters(props.filters)}
-    </div>
+    <AnimatePresence>
+      {showFilters && (
+        <MotionDiv
+          css={styles.filters}
+          transition={{ duration: 0.5 }}
+          initial={{ height: 0 }}
+          animate={{ height: 'auto' }}
+          exit={{ height: 0 }}
+        >
+          {renderFilters(filters)}
+        </MotionDiv>
+      )}
+    </AnimatePresence>
   );
 };
 

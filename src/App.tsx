@@ -1,7 +1,7 @@
 import React from 'react';
-import LogPanel from './components/LogPanel';
+import LogPanel from './components/logs/LogPanel';
 import { css } from '@emotion/core';
-import Header from './components/Header';
+import Header from './components/layout/Header';
 
 const styles = {
   app: css`
