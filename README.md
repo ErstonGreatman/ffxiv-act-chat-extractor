@@ -9,7 +9,7 @@ exporting to various mediums.
 
 This was inspired/taken from [https://github.com/isalin/ACT-Log-Extractor](https://github.com/isalin/ACT-Log-Extractor),
 whose initial work, especially with the RegEx (*shudders*) inspired me to try to update it. It's written in React with
-TypeScript and Emotion. I might add something like Pose for better animations with elements.
+TypeScript and Emotion as well as Framer Motion.
 
 It's currently live at: https://face.eggaming.net/
 
