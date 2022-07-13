@@ -1,12 +1,9 @@
 import * as React from 'react';
 import Filters from '../Filters';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { Log } from './Log';
 import { useState } from 'react';
-import {
-  FLEX_COLUMN,
-  FLEX_ROW,
-} from '../../globalStyles/flexbox';
+import { FLEX_COLUMN, FLEX_ROW } from '../../globalStyles/flexbox';
 
 
 const styles = {
@@ -21,8 +18,8 @@ const styles = {
       flex-grow: 1;
       text-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
       padding: 1rem;
-      background: linear-gradient(180deg, #021c2f, #2d2cf4);
-      background-size: 200% 200%;
+      background: linear-gradient(180deg, #2d2cf4, #021c2f);
+      background-size: 200% 100%;
     `,
   ],
   actionBar: [
