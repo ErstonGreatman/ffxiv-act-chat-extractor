@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 // Why is this here? window.matchMedia() doesn't match with @media so I had to add this part
 const IS_ON_BREAKPOINTS = {

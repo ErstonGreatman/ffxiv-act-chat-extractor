@@ -1,26 +1,17 @@
 import * as React from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Viewer from './Viewer';
-import {
-  useCallback,
-  useState,
-} from 'react';
+import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import {
-  filterLog,
-  parseLog,
-  setAllFilters,
-} from './module';
-import {
-  Log,
-  MatchedLogLine,
-} from './Log';
+import { filterLog, parseLog, setAllFilters } from './module';
+import { Log, MatchedLogLine } from './Log';
 import NoLog from '../NoLog';
 import LoadingSpinner from '../LoadingSpinner';
 import LogHeader from './LogHeader';
 
+
 const styles = {
-  logPanel: css`
+  logPanel:    css`
     display: flex;
     flex-direction: column;
     align-self: stretch;
@@ -31,14 +22,14 @@ const styles = {
   hiddenInput: css`
     visibility: hidden;
   `,
-  logLoader: (logLoaded: boolean) => css`
+  logLoader:   (logLoaded: boolean) => css`
     color: #ffffff;
     flex-grow: 1;
     text-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
     width: 100%;
     display: ${logLoaded ? 'none' : 'block'};
   `,
-  logInfo: css`
+  logInfo:     css`
     padding: 1rem;
   `,
 };
@@ -50,8 +41,8 @@ const styles = {
  */
 const LogPanel: React.FC = () => {
   const [isParsing, setIsParsing] = useState(false);
-  const [filters, setFilters] = useState<string[]>(setAllFilters());
-  const [log, setLogFile] = useState<Log | undefined>(undefined);
+  const [filters, setFilters]     = useState<string[]>(setAllFilters());
+  const [log, setLogFile]         = useState<Log | undefined>(undefined);
 
   const onDropCallback = (files: File[]) => {
     setIsParsing(true);
@@ -62,8 +53,9 @@ const LogPanel: React.FC = () => {
   };
 
   // Drag and Drop things
-  const onDrop = useCallback(onDropCallback, []);
-  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({ accept: '.log', onDrop });
+  const onDrop                                              = useCallback(onDropCallback, []);
+  const dropzoneOptions                                     = { accept: { 'text/plain': ['.log'] }, onDrop };
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone(dropzoneOptions);
 
   return (
     <div css={styles.logPanel}>

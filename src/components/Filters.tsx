@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { css } from '@emotion/core';
-import 'react-toggle/style.css';
-import Toggle from 'react-toggle';
+import { css } from '@emotion/react';
 import {
   CHANNEL_CODES,
   CHANNELS,
@@ -11,6 +9,7 @@ import {
   motion,
 } from 'framer-motion';
 import { FLEX_ROW } from '../globalStyles/flexbox';
+import { Switch } from '@mui/material';
 
 
 const MotionDiv = motion.div;
@@ -40,7 +39,6 @@ const styles = {
     `,
   ],
   toggle: css`
-    box-shadow: -5px 5px 5px rgba(32, 32, 32, 1);
     margin-right: 20px;
   `,
 };
@@ -69,11 +67,12 @@ const Filters: React.FC<Props> = ({ filters, setFilters, showFilters }) => {
         {channel.code === CHANNEL_CODES.CROSSWORLD_LINKSHELL1 && <span
           css={styles.sectionTitle}>Cross-World Linkshells</span>}
         <label css={[styles.filter, index === 0 && FULL_WIDTH]} htmlFor={channel.name} key={channel.name}>
-          <Toggle
+          <Switch
             id={channel.name}
             css={styles.toggle}
             checked={filters.includes(channel.code)}
             onChange={() => toggleFilter(channel.code)}
+            color='success'
           />
           <span>{channel.name}</span>
         </label>
