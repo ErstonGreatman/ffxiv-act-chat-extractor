@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
+    "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
     "customize-cra": "^1.0.0",
     "framer-motion": "^6.5.1",
