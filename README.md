@@ -29,6 +29,7 @@ filter out unwanted channels and enjoy!
 - Export methods: HTML, Markdown, etc.
 - Add colorpickers for chat channels to customize the colors
 - Better UI/color scheme
+- I might redo this in Svelte because I'm quite loving it
 
 
 ---
