@@ -13,7 +13,7 @@ This was inspired/taken from [https://github.com/isalin/ACT-Log-Extractor](https
 whose initial work, especially with the RegEx (*shudders*) inspired me to try to update it. It's written in React with
 TypeScript and Emotion as well as Framer Motion.
 
-It's currently live at: https://face.eggaming.net/
+It's currently live at: https://ffxiv-act-chat-extractor.netlify.app/
 
 ---
 
