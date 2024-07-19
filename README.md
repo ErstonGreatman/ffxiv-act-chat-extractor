@@ -20,6 +20,11 @@ app or click on the app to open the file browser. By default, they should be sto
 in `%appdata%\Advanced Combat Tracker\FFXIVLogs`. Once the log is loaded, click to expand the filters if you want to
 filter out unwanted channels and enjoy!
 
+### Don't have a log but just wanted to test out the app?
+Download this sample one here in the repo and drop it into the app:
+
+[Network_27009_20240709.log](Network_27009_20240709.log)
+
 ## Known Issues/Planned Updates
 
 - Export methods: HTML, Markdown, etc.
