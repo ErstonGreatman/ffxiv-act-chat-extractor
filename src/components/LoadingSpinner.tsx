@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Crystal from '../assets/ff4-spinning-crystal.gif';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import {
   FLEX_CENTERED,
   FLEX_COLUMN,

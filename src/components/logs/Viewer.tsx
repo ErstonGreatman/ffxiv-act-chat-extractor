@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { MatchedLogLine } from './Log';
-import { css } from '@emotion/core';
-import {
-  CHANNEL_CODES,
-  CHANNELS,
-} from '../../constants/Channels';
+import { css } from '@emotion/react';
+import { CHANNEL_CODES, CHANNELS } from '../../constants/Channels';
 import { parseName } from './module';
 import { RegEx } from '../../constants/RegEx';
 
 
 const styles = {
-  logs: css`
+  logs:        css`
     background-color: #282c34;
     display: flex;
     flex-direction: column;
@@ -46,7 +43,7 @@ const Viewer: React.FC<Props> = (props: Props) => {
       case CHANNEL_CODES.EMOTE:
         return <></>;
       case CHANNEL_CODES.WHISPER:
-        return <span>{parsedSender}> </span>;
+        return <span>{parsedSender}&gt; </span>;
       case CHANNEL_CODES.PARTY:
         return <span>({parsedSender}) </span>;
       case CHANNEL_CODES.FREE_COMPANY:

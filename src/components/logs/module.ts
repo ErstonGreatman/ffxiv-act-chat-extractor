@@ -2,6 +2,7 @@ import { MatchedLogLine } from './Log';
 import { RegEx } from '../../constants/RegEx';
 import { CHANNELS } from '../../constants/Channels';
 
+
 export const setAllFilters = (): string[] => ['timestamp', ...CHANNELS.map((channel => channel.code))];
 
 export const filterLog = (
@@ -49,32 +50,40 @@ export const parseLog = (onComplete: (parsedLog: MatchedLogLine[]) => void) => (
 export const parseName = (name: string): string => {
   const senderRegEx = name.match(RegEx.name);
   return `${senderRegEx?.groups?.['name'] ?? 'Unknown'}${senderRegEx?.groups?.['realm']
-                                                         ? `🌸${senderRegEx.groups['realm']}`
-                                                         : ''}`;
+    ? `🌸${senderRegEx.groups['realm']}`
+    : ''}`;
 };
 
 /**
  * parseLogLines
  * Takes a log in string form and parses it into an array of lines, broken down into objects by time, channel code,
- * sender and message
+ * sender and message. Note: Channel code is made uppercase to avoid casing comparison issues
  * @param {string} log - Name of the character parse from the log string
  * @return {MatchedLogLine[]} An array of MatchedLogLine objects
  */
 export const parseLogLines = (log: string): MatchedLogLine[] => {
   const logByLine: string[] = log.toString().split('\n');
 
-  return logByLine.map((line: string) => {
-    const match = line.match(RegEx.message);
+  const parsedLog = logByLine.map(
+    (line: string) => {
+      const match = line.match(RegEx.message);
 
-    if (match?.groups) {
-      return {
-        time: match.groups['time'],
-        code: match.groups['code'],
-        sender: match.groups['sender'],
-        message: match.groups['message'],
-      };
-    }
-    return null;
-  })
-    .filter(element => element !== null) as MatchedLogLine[];
+      if (match?.groups) {
+        return {
+          time:    match.groups['time'],
+          code:    match.groups['code'].toUpperCase(),
+          sender:  match.groups['sender'],
+          message: match.groups['message'],
+        };
+      }
+      return null;
+    },
+  ).filter(element => element !== null) as MatchedLogLine[];
+
+  if (process.env.NODE_ENV === 'development') {
+    const logOutput = parsedLog.map(entry => `${entry.time}|${entry.code}|${entry.sender}|${entry.message}\r\n`);
+    console.log(`Parsed log:\r\n${logOutput}`);
+  }
+
+  return parsedLog;
 };
