@@ -80,7 +80,7 @@ export const parseLogLines = (log: string): MatchedLogLine[] => {
     },
   ).filter(element => element !== null) as MatchedLogLine[];
 
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     const logOutput = parsedLog.map(entry => `${entry.time}|${entry.code}|${entry.sender}|${entry.message}\r\n`);
     console.log(`Parsed log:\r\n${logOutput}`);
   }
