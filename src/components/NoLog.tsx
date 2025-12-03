@@ -26,22 +26,16 @@ const styles = {
 };
 
 
-type Props = {
-  hasLog: boolean;
-  isDragActive: boolean;
-};
-
-
 /**
  * NoLog: a component that shows when there are no logs loaded
  *
  * PureComponent: true
  * Redux Connected: false
  */
-const NoLog: React.FC<Props> = (props: Props) => (
+const NoLog = ({ isDragActive }: { isDragActive: boolean }): React.ReactNode => (
   <div css={styles.noLog}>
     <p css={styles.dragInstructions}>Drag and Drop your .log file here</p>
-    <div css={styles.onDragActive(props.isDragActive)}>Gimme gimme log file!</div>
+    <div css={styles.onDragActive(isDragActive)}>Gimme gimme log file!</div>
   </div>
 );
 

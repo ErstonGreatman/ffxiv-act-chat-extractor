@@ -16,38 +16,51 @@ export enum CHANNEL_CODES {
   EMOTE                 = '001D',
   YELL                  = '001E',
   WHISPER               = '000C',
-  CROSSWORLD_LINKSHELL1 = '0025',
+  ECHO                  = '0039',
+  CROSSWORLD_LINKSHELL1 = '0064',
   CROSSWORLD_LINKSHELL2 = '0065',
   CROSSWORLD_LINKSHELL3 = '0066',
   CROSSWORLD_LINKSHELL4 = '0067',
   CROSSWORLD_LINKSHELL5 = '0068',
+  CROSSWORLD_LINKSHELL6 = '0069',
+  CROSSWORLD_LINKSHELL7 = '0070',
+  CROSSWORLD_LINKSHELL8 = '0071',
 }
 
 
-export const CHANNELS = [
+export type ChannelInfo = {
+  name: string;
+  color?: string;
+};
+
+export const CHANNELS: Record<string, ChannelInfo> = {
   // Technically not a channel, but used for optional filtering
-  { code: 'time', name: 'Show Timestamp' },
-  { code: '000A', name: 'Say', color: '#FFFFFF' },
-  { code: '000B', name: 'Shout', color: '#EB9234' },
-  { code: '000E', name: 'Party', color: '#1ECCE3' },
-  { code: '000F', name: 'Alliance', color: '#EB9234' },
-  { code: '0018', name: 'Free Company', color: '#54B068' },
-  { code: '001C', name: 'Custom Emote', color: '#8CCCC3' },
-  { code: '001D', name: 'Emote', color: '#FFFFFF' },
-  { code: '001E', name: 'Yell', color: '#C9C722' },
-  { code: '0039', name: 'Whisper', color: '#D439CC' },
-  { code: '0010', name: 'Linkshell 1', color: '#31B56A' },
-  { code: '0011', name: 'Linkshell 2', color: '#2A8C9C' },
-  { code: '0012', name: 'Linkshell 3', color: '#296196' },
-  { code: '0013', name: 'Linkshell 4', color: '#2D509C' },
-  { code: '0014', name: 'Linkshell 5', color: '#5959B1' },
-  { code: '0015', name: 'Linkshell 6', color: '#7159B1' },
-  { code: '0016', name: 'Linkshell 7', color: '#7B51AF' },
-  { code: '0017', name: 'Linkshell 8', color: '#9551AF' },
-  { code: '0064', name: 'Cross-World Linkshell 1', color: '#2D509C' },
-  { code: '0065', name: 'Cross-World Linkshell 2', color: '#5959B1' },
-  { code: '0066', name: 'Cross-World Linkshell 3', color: '#7159B1' },
-  { code: '0067', name: 'Cross-World Linkshell 4', color: '#7B51AF' },
-  { code: '0068', name: 'Cross-World Linkshell 5', color: '#9551af' },
-];
+  'timestamp':                           { name: 'Show Timestamp' },
+  [CHANNEL_CODES.SAY]:                   { name: 'Say', color: '#FFFFFF' },
+  [CHANNEL_CODES.SHOUT]:                 { name: 'Shout', color: '#EB9234' },
+  [CHANNEL_CODES.PARTY]:                 { name: 'Party', color: '#1ECCE3' },
+  [CHANNEL_CODES.ALLIANCE]:              { name: 'Alliance', color: '#EB9234' },
+  [CHANNEL_CODES.FREE_COMPANY]:          { name: 'Free Company', color: '#54B068' },
+  [CHANNEL_CODES.CUSTOM_EMOTE]:          { name: 'Custom Emote', color: '#8CCCC3' },
+  [CHANNEL_CODES.EMOTE]:                 { name: 'Emote', color: '#FFFFFF' },
+  [CHANNEL_CODES.YELL]:                  { name: 'Yell', color: '#C9C722' },
+  [CHANNEL_CODES.WHISPER]:               { name: 'Whisper', color: '#D439CC' },
+  [CHANNEL_CODES.ECHO]:                  { name: 'Echo', color: '#FFFFFF' },
+  [CHANNEL_CODES.LINKSHELL1]:            { name: 'Linkshell 1', color: '#31B56A' },
+  [CHANNEL_CODES.LINKSHELL2]:            { name: 'Linkshell 2', color: '#2A8C9C' },
+  [CHANNEL_CODES.LINKSHELL3]:            { name: 'Linkshell 3', color: '#296196' },
+  [CHANNEL_CODES.LINKSHELL4]:            { name: 'Linkshell 4', color: '#2D509C' },
+  [CHANNEL_CODES.LINKSHELL5]:            { name: 'Linkshell 5', color: '#5959B1' },
+  [CHANNEL_CODES.LINKSHELL6]:            { name: 'Linkshell 6', color: '#7159B1' },
+  [CHANNEL_CODES.LINKSHELL7]:            { name: 'Linkshell 7', color: '#7B51AF' },
+  [CHANNEL_CODES.LINKSHELL8]:            { name: 'Linkshell 8', color: '#9551AF' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL1]: { name: 'Cross-World Linkshell 1', color: '#2D509C' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL2]: { name: 'Cross-World Linkshell 2', color: '#5959B1' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL3]: { name: 'Cross-World Linkshell 3', color: '#7159B1' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL4]: { name: 'Cross-World Linkshell 4', color: '#7B51AF' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL5]: { name: 'Cross-World Linkshell 5', color: '#9551AF' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL6]: { name: 'Cross-World Linkshell 6', color: '#AD51AF' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL7]: { name: 'Cross-World Linkshell 7', color: '#C551AF' },
+  [CHANNEL_CODES.CROSSWORLD_LINKSHELL8]: { name: 'Cross-World Linkshell 8', color: '#DD51AF' },
+};
 

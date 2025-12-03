@@ -18,55 +18,60 @@ const styles = {
   logContents: css`
   `,
   logEntry: (code: string) => css`
-    color: ${CHANNELS.find(channel => channel.code === code)?.color ?? '#FFFFFF'};
+    color: ${CHANNELS[code]?.color ?? '#FFFFFF'};
     font-family: 'Open Sans', Arial, sans-serif;
   `,
-};
-
-
-type Props = {
-  log: MatchedLogLine[];
-  showTimeStamp: boolean;
 };
 
 
 /**
  * Viewer: a component that displays the parsed log based on filtering
  */
-const Viewer: React.FC<Props> = (props: Props) => {
+const Viewer = ({
+                  log,
+                  showTimeStamp,
+                }: {
+  log: MatchedLogLine[];
+  showTimeStamp: boolean;
+}): React.ReactNode => {
   const renderSender = (code: string, sender: string) => {
-    const parsedSender = parseName(sender);
-
     switch (code) {
-      case CHANNEL_CODES.CUSTOM_EMOTE:
-        return <span>{parsedSender} </span>;
-      case CHANNEL_CODES.EMOTE:
-        return <></>;
-      case CHANNEL_CODES.WHISPER:
-        return <span>{parsedSender}&gt; </span>;
-      case CHANNEL_CODES.PARTY:
-        return <span>({parsedSender}) </span>;
-      case CHANNEL_CODES.FREE_COMPANY:
-        return <span>[Free Company]{`<${parsedSender}>`} </span>;
-      case CHANNEL_CODES.LINKSHELL1:
-      case CHANNEL_CODES.LINKSHELL2:
-      case CHANNEL_CODES.LINKSHELL3:
-      case CHANNEL_CODES.LINKSHELL4:
-      case CHANNEL_CODES.LINKSHELL5:
-      case CHANNEL_CODES.LINKSHELL6:
-      case CHANNEL_CODES.LINKSHELL7:
-      case CHANNEL_CODES.LINKSHELL8:
-        const linkshell = parseInt(code) - 9;
-        return <span>[{linkshell}]{`<${parsedSender}>`} </span>;
-      case CHANNEL_CODES.CROSSWORLD_LINKSHELL1:
-      case CHANNEL_CODES.CROSSWORLD_LINKSHELL2:
-      case CHANNEL_CODES.CROSSWORLD_LINKSHELL3:
-      case CHANNEL_CODES.CROSSWORLD_LINKSHELL4:
-      case CHANNEL_CODES.CROSSWORLD_LINKSHELL5:
-        const cwls = parseInt(code) - 63;
-        return <span>[CWL{cwls}]{`<${parsedSender}>`} </span>;
-      default:
-        return <span>{parsedSender}: </span>;
+      case CHANNEL_CODES.SHOUT:
+        return <span>{sender}: </span>;
+      default: {
+        const parsedSender = parseName(sender);
+        switch (code) {
+          case CHANNEL_CODES.CUSTOM_EMOTE:
+            return <span>{parsedSender} </span>;
+          case CHANNEL_CODES.EMOTE:
+            return <></>;
+          case CHANNEL_CODES.WHISPER:
+            return <span>{parsedSender}&gt; </span>;
+          case CHANNEL_CODES.PARTY:
+            return <span>({parsedSender}) </span>;
+          case CHANNEL_CODES.FREE_COMPANY:
+            return <span>[Free Company]{`<${parsedSender}>`} </span>;
+          case CHANNEL_CODES.LINKSHELL1:
+          case CHANNEL_CODES.LINKSHELL2:
+          case CHANNEL_CODES.LINKSHELL3:
+          case CHANNEL_CODES.LINKSHELL4:
+          case CHANNEL_CODES.LINKSHELL5:
+          case CHANNEL_CODES.LINKSHELL6:
+          case CHANNEL_CODES.LINKSHELL7:
+          case CHANNEL_CODES.LINKSHELL8:
+            const linkshell = parseInt(code) - 9;
+            return <span>[{linkshell}]{`<${parsedSender}>`} </span>;
+          case CHANNEL_CODES.CROSSWORLD_LINKSHELL1:
+          case CHANNEL_CODES.CROSSWORLD_LINKSHELL2:
+          case CHANNEL_CODES.CROSSWORLD_LINKSHELL3:
+          case CHANNEL_CODES.CROSSWORLD_LINKSHELL4:
+          case CHANNEL_CODES.CROSSWORLD_LINKSHELL5:
+            const cwls = parseInt(code) - 63;
+            return <span>[CWL{cwls}]{`<${parsedSender}>`} </span>;
+          default:
+            return <span>{parsedSender}: </span>;
+        }
+      }
     }
   };
 
@@ -78,7 +83,7 @@ const Viewer: React.FC<Props> = (props: Props) => {
 
   const renderLogEntry = (entry: MatchedLogLine, index: number) => (
     <div css={styles.logEntry(entry.code)} key={`${entry.time}-${entry.sender}-${index}`}>
-      {props.showTimeStamp && <span>[{entry.time}] </span>}
+      {showTimeStamp && <span>[{entry.time}] </span>}
       {renderSender(entry.code, entry.sender)}
       <span>{entry.code === CHANNEL_CODES.EMOTE ? renderEmote(entry.message) : entry.message}</span>
     </div>
@@ -87,7 +92,7 @@ const Viewer: React.FC<Props> = (props: Props) => {
   return (
     <div css={styles.logs}>
       <div css={styles.logContents}>
-        {props.log.map(renderLogEntry)}
+        {log.map(renderLogEntry)}
       </div>
     </div>
   );

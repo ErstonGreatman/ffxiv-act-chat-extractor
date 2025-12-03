@@ -32,17 +32,12 @@ const styles = {
 };
 
 
-type Props = {
-  message: string;
-};
-
-
 /**
  * LoadingSpinner: a component that shows a spinning crystal and, optionally, a message
  */
-const LoadingSpinner: React.FC<Props> = (props: Props) => (
+const LoadingSpinner = ({ message }: { message: string }): React.ReactNode => (
   <div css={styles.loadingSpinner}>
-    {props.message && <div css={styles.message}>{props.message}</div>}
+    {message && <div css={styles.message}>{message}</div>}
     <img css={styles.spinner} alt='Loading Spinner' src={Crystal} />
   </div>
 );

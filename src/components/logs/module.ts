@@ -1,9 +1,9 @@
 import { MatchedLogLine } from './Log';
 import { RegEx } from '../../constants/RegEx';
-import { CHANNELS } from '../../constants/Channels';
+import { CHANNEL_CODES, CHANNELS } from '../../constants/Channels';
 
 
-export const setAllFilters = (): string[] => ['timestamp', ...CHANNELS.map((channel => channel.code))];
+export const setAllFilters = (): string[] => Object.keys(CHANNELS);
 
 export const filterLog = (
   log: MatchedLogLine[],
@@ -41,9 +41,60 @@ export const parseLog = (onComplete: (parsedLog: MatchedLogLine[]) => void) => (
 };
 
 /**
+ * parseShoutSender
+ * Parses Shout message sender information which may include job abbreviation
+ * Format: "JOB Name Server" or "Name Server" (job is optional)
+ * @param {string} sender - Sender string from the log
+ * @return {object} Object with job (optional), name, and realm (optional)
+ */
+export const parseShoutSender = (sender: string): { job?: string; name: string; realm?: string } => {
+  const match = sender.match(RegEx.shoutSender);
+
+  if (!match?.groups) {
+    return { name: 'Unknown' };
+  }
+
+  const groups = match.groups;
+
+  // Check for job with name and realm
+  if (groups['job'] && groups['name'] && groups['realm']) {
+    return {
+      job:   groups['job'],
+      name:  groups['name'],
+      realm: groups['realm'],
+    };
+  }
+
+  // Check for job with name only (no realm)
+  if (groups['job2'] && groups['name2']) {
+    return {
+      job:  groups['job2'],
+      name: groups['name2'],
+    };
+  }
+
+  // Check for name with realm (no job)
+  if (groups['nameOnly'] && groups['realmOnly']) {
+    return {
+      name:  groups['nameOnly'],
+      realm: groups['realmOnly'],
+    };
+  }
+
+  // Check for name only (no job, no realm)
+  if (groups['nameOnlyNoRealm']) {
+    return {
+      name: groups['nameOnlyNoRealm'],
+    };
+  }
+
+  return { name: 'Unknown' };
+};
+
+/**
  * parseName
  * Parses and presents a display-friendly string for names as Cross-World names enter the log as
- * 'Erston GreatmanBrynhildr'
+ * 'Erston GreatmanBrynhildr'
  * @param {string} name - Name of the character parse from the log string.
  * @return {string} A chat name string such as 'Erston Greatman' or 'Erston Greatman🌸Brynhildr
  */
@@ -69,10 +120,21 @@ export const parseLogLines = (log: string): MatchedLogLine[] => {
       const match = line.match(RegEx.message);
 
       if (match?.groups) {
+        const code = match.groups['code'].toUpperCase();
+        let sender = match.groups['sender'].trim();
+
+        // Parse sender for SHOUT messages to format with job, name, and realm
+        if (code === CHANNEL_CODES.SHOUT) {
+          const shoutInfo = parseShoutSender(sender);
+          sender          = `${shoutInfo.job ? `[${shoutInfo.job}] ` : ''}${shoutInfo.name}${shoutInfo.realm
+            ? `🌸${shoutInfo.realm}`
+            : ''}`;
+        }
+
         return {
           time:    match.groups['time'],
-          code:    match.groups['code'].toUpperCase(),
-          sender:  match.groups['sender'],
+          code:   code,
+          sender: sender,
           message: match.groups['message'],
         };
       }
@@ -81,8 +143,10 @@ export const parseLogLines = (log: string): MatchedLogLine[] => {
   ).filter(element => element !== null) as MatchedLogLine[];
 
   if (import.meta.env.DEV) {
-    const logOutput = parsedLog.map(entry => `${entry.time}|${entry.code}|${entry.sender}|${entry.message}\r\n`);
-    console.log(`Parsed log:\r\n${logOutput}`);
+    const logOutput = parsedLog.map(entry => `${entry.time}|${entry.code}|${entry.sender}|${entry.message}
+`);
+    console.log(`Parsed log:
+${logOutput}`);
   }
 
   return parsedLog;

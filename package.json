@@ -30,7 +30,6 @@
     "vitest": "^4.0.14"
   },
   "scripts": {
-    "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",

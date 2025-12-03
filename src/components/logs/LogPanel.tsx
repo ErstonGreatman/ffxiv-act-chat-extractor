@@ -64,12 +64,12 @@ const LogPanel: React.FC = () => {
         <>
           <div css={styles.logLoader(!!log)} {...getRootProps()}>
             <input css={styles.hiddenInput} {...getInputProps()} />
-            {!log && <NoLog hasLog={!!log} isDragActive={isDragActive} />}
+            {!log && <NoLog isDragActive={isDragActive} />}
           </div>
           {log && (
             <>
               {!isDragActive && <LogHeader log={log} filters={filters} setFilters={setFilters} openFileDialog={open} />}
-              <Viewer log={filterLog(log.contents, filters)} showTimeStamp={filters.includes('time')} />
+              <Viewer log={filterLog(log.contents, filters)} showTimeStamp={filters.includes('timestamp')} />
             </>
           )}
         </>

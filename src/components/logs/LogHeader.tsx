@@ -2,7 +2,6 @@ import * as React from 'react';
 import Filters from '../Filters';
 import { css } from '@emotion/react';
 import { Log } from './Log';
-import { useState } from 'react';
 import { FLEX_COLUMN, FLEX_ROW } from '../../globalStyles/flexbox';
 
 
@@ -52,31 +51,33 @@ const styles = {
 };
 
 
-type Props = {
+/**
+ * LogHeader: a component that shows the filename of the log loaded, filters, and a button to load a new log file
+ */
+const LogHeader = ({
+                     log,
+                     filters,
+                     setFilters,
+                     openFileDialog,
+                   }: {
   log: Log;
   filters: string[];
   setFilters: (newFilters: string[]) => void;
   openFileDialog: () => void;
-};
-
-
-/**
- * LogHeader: a component that shows the filename of the log loaded, filters, and a button to load a new log file
- */
-const LogHeader: React.FC<Props> = (props: Props) => {
-  const [showFilters, setShowFilters] = useState(false);
+}): React.ReactNode => {
+  const [showFilters, setShowFilters] = React.useState(false);
   return (
     <div css={styles.logLoadedHeader}>
       <div css={styles.actionBar}>
         <div css={styles.fileName}>
-          {props.log.filename}&nbsp;
+          {log.filename}&nbsp;
         </div>
         <div css={styles.toggleFilters} onClick={() => setShowFilters(!showFilters)}>
           <span>Filters </span><span css={styles.filterArrow(showFilters)}>▼</span>
         </div>
-        <span css={styles.loadLogButton} onClick={props.openFileDialog}>Load new Log</span>
+        <span css={styles.loadLogButton} onClick={openFileDialog}>Load new Log</span>
       </div>
-      <Filters filters={props.filters} setFilters={props.setFilters} showFilters={showFilters} />
+      <Filters filters={filters} setFilters={setFilters} showFilters={showFilters} />
     </div>
   );
 }
