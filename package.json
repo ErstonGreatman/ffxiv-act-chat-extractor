@@ -2,13 +2,21 @@
   "name": "ffxiv-act-chat-extractor",
   "version": "0.1.2",
   "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.5",
     "framer-motion": "^12.38.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.2.4",
     "react-dropzone": "^14.3.8"
   },
   "devDependencies": {
@@ -28,14 +36,6 @@
     "vite-plugin-svgr": "^4.5.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.14"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
   },
   "browserslist": {
     "production": [
