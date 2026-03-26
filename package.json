@@ -31,10 +31,10 @@
     "@vitest/ui": "^4.0.14",
     "jsdom": "^28.1.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.6",
+    "vite": "^8.0.3",
     "vite-plugin-svgr": "^4.5.0",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.14"
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.1"
   },
   "browserslist": {
     "production": [
